@@ -8,4 +8,10 @@ public class MoviesController : Controller
 	{
 		return View();
 	}
+
+	[HttpGet]
+	public IActionResult Create()
+	{
+		return View();
+	}
 }
