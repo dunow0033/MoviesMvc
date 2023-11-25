@@ -6,19 +6,25 @@
     <div class="container">
         <h1>Create New Movie</h1>
         <hr />
-        <label for="title">Title</label>
-        <input type="text" width="50" id="title" name="title" />
-        <br />
-        <label for="release">Release Date</label>
-        <input type="text" width="50" id="release" name="release" />
-        <br />
-        <label for="genre">Genre</label>
-        <input type="text" width="50" id="genre" name="genre" />
-        <br />
-        <label for="price">Price</label>
-        <input type="text" width="50" id="price" name="price" />
-        <br />
-        <label for="rating">Rating</label>
-        <input type="text" width="50" id="rating" name="rating" />
+        <form method="post" action="Create">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" />
+            <br />
+            <label for="release">Release Date</label>
+            <input type="text" id="release" name="release" />
+            <br />
+            <label for="genre">Genre</label>
+            <input type="text" id="genre" name="genre" />
+            <br />
+            <label for="price">Price</label>
+            <input type="text" id="price" name="price" />
+            <br />
+            <label for="rating">Rating</label>
+            <input type="text" id="rating" name="rating" />
+            <div class="mb-3 mt-3">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+        <a asp-area="" asp-controller="Movies" asp-action="Index">Back to List</a>
     </div>
 </div>
