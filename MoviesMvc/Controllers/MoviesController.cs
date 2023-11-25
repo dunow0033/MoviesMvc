@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MoviesMvc.Models;
 using MoviesMvc.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MoviesMvc.Controllers;
 
@@ -13,9 +15,11 @@ public class MoviesController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    [HttpGet]
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var movies = await _context.Movies.ToListAsync();
+        return View(movies);
     }
 
     [HttpGet]
@@ -24,8 +28,21 @@ public class MoviesController : Controller
         return View();
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Detail(Guid id)
+    {
+        var movie = await _context.Movies.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (movie == null)
+        {
+            return NotFound();
+        }
+
+        return View(movie);
+    }
+
     [HttpPost]
-    public IActionResult Create(Movie movie)
+    public async Task<IActionResult> Create(Movie movie)
     {
         var newMovie = new Movie()
         {
@@ -36,8 +53,8 @@ public class MoviesController : Controller
             Rating = movie.Rating,
         };
 
-        _context.Movies.Add(newMovie);
-        _context.SaveChanges();
+        await _context.Movies.AddAsync(newMovie);
+        await _context.SaveChangesAsync();
 
         return RedirectToAction("Index");
     }

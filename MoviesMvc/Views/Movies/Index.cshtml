@@ -1,9 +1,33 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<MoviesMvc.Models.Movie>
 @{
 }
 
-<h2>Main Movies List</h2>
+<h2>List of Movies:</h2>
 
-<a asp-area="" asp-controller="Movies" asp-action="Create">Create New</a>
+<a asp-area="" asp-controller="Movies" asp-action="Create">Create New Movie</a>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Release Date</th>
+			<th>Genre</th>
+			<th>Price</th>
+			<th>Rating</th>
+			<th>Other Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var movie in Model)
+		{
+			<tr>
+				<td>@movie.Title</td>
+				<td>@movie.Release_date</td>
+				<td>@movie.Genre</td>
+				<td>@movie.Price</td>
+				<td>@movie.Rating</td>
+				<td><a href="Movies/Detail/@movie.Id">Detail</a></td>
+			</tr>
+		}
+	</tbody>
+</table>

@@ -1,4 +1,4 @@
-﻿
+﻿@model MoviesMvc.Models.Movie;
 @{
 }
 
@@ -10,8 +10,8 @@
             <label for="title">Title</label>
             <input type="text" id="title" name="title" />
             <br />
-            <label for="release">Release Date</label>
-            <input type="text" id="release" name="release" />
+            <label for="release_date"></label>
+            <input type="text" id="release_date" name="release_date" />
             <br />
             <label for="genre">Genre</label>
             <input type="text" id="genre" name="genre" />
@@ -21,10 +21,11 @@
             <br />
             <label for="rating">Rating</label>
             <input type="text" id="rating" name="rating" />
+
             <div class="mb-3 mt-3">
                 <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </form>
-        <a asp-area="" asp-controller="Movies" asp-action="Index">Back to List</a>
+        <a asp-action="Index">Back to List</a>
     </div>
 </div>
