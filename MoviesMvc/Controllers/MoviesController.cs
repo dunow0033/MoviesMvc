@@ -3,6 +3,7 @@ using MoviesMvc.Models;
 using MoviesMvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MoviesMvc.Movies.Models;
 
 namespace MoviesMvc.Controllers;
 
@@ -15,14 +16,44 @@ public class MoviesController : Controller
         _context = context;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Index()
-    {
-        var movies = await _context.Movies.ToListAsync();
-        return View(movies);
-    }
+    //[HttpGet]
+    //public async Task<IActionResult> Index()
+    //{
+    //    var movies = await _context.Movies.ToListAsync();
+    //    return View(movies);
+    //}
 
-    [HttpGet]
+	[HttpGet]
+	public async Task<IActionResult> Index(string movieGenre, string searchString)
+	{
+		// Use LINQ to get list of genres.
+		IQueryable<string> genreQuery = from m in _context.Movies
+										select m.Genre;
+		var movies = from m in _context.Movies
+					 select m;
+
+		if (!string.IsNullOrEmpty(searchString))
+		{
+			movies = movies.Where(s => s.Title!.Contains(searchString));
+		}
+
+		if (!string.IsNullOrEmpty(movieGenre))
+		{
+			movies = movies.Where(x => x.Genre == movieGenre);
+		}
+
+		var movieGenreVM = new MovieGenreViewModel
+		{
+			Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+			Movies = await movies.ToListAsync()
+		};
+
+		return View(movieGenreVM);
+	}
+
+
+
+	[HttpGet]
     public IActionResult Create()
     {
         return View();
