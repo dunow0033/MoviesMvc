@@ -1,31 +1,53 @@
 ﻿@model MoviesMvc.Models.Movie;
+
 @{
+    ViewData["Title"] = "Create";
 }
 
-<div class="bg-secondary bg-opacity-10 py-2">
-    <div class="container">
-        <h1>Create New Movie</h1>
-        <hr />
-        <form method="post" action="Create">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" />
-            <br />
-            <label for="release_date"></label>
-            <input type="text" id="release_date" name="release_date" />
-            <br />
-            <label for="genre">Genre</label>
-            <input type="text" id="genre" name="genre" />
-            <br />
-            <label for="price">Price</label>
-            <input type="text" id="price" name="price" />
-            <br />
-            <label for="rating">Rating</label>
-            <input type="text" id="rating" name="rating" />
-
-            <div class="mb-3 mt-3">
-                <button type="submit" class="btn btn-primary">Create</button>
+<h4>Create New Movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Release_date" class="control-label"></label>
+                <input asp-for="Release_date" class="form-control" />
+                <span asp-validation-for="Release_date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genre" class="control-label"></label>
+                <input asp-for="Genre" class="form-control" />
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary form-control" />
             </div>
         </form>
-        <a asp-action="Index">Back to List</a>
     </div>
 </div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
